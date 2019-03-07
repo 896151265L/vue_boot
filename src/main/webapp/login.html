@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>登陆页面</title>
+    <!--引入vue组件,放在首位-->
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <!-- 引入样式 -->
+    <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <!-- 引入组件库 -->
+    <script src="https://unpkg.com/element-ui/lib/index.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue-resource@1.5.1"></script>
+
+    <!--引入自定义常量池-->
+    <script src="js/config.js"></script>
+
+</head>
+<body background="images\01.jpg"
+      style=" background-repeat:no-repeat; background-size:100% 100%; ackground-attachment: fixed;">
+
+<div id="app">
+    <div style="height: calc(100vh - 37px); display: flex; align-items: center;">
+        <div style="width: 400px ; height: 280px; margin: 0 auto; background: #FFF; color:#000000">
+            <el-form :model="User" ref="User" label-width="60px" style=" padding: 10%;" :rules="rules"
+                     class="demo-ruleForm">
+                <el-form-item label="账号:" prop="account">
+                    <el-input type="text" v-model="User.account" placeholder="请输入账号..."></el-input>
+                </el-form-item>
+                <el-form-item label="密码:" prop="passWord">
+                    <el-input type="password" v-model="User.passWord" placeholder="请输入密码..."></el-input>
+                </el-form-item>
+                <div style="text-align: center;">
+                    <el-form-item label-width="0;">
+                        <el-button type="primary" @click="submitForm()">登录</el-button>
+                        <el-button type="primary" @click="reset()">重置</el-button>
+                    </el-form-item>
+                </div>
+            </el-form>
+        </div>
+    </div>
+    <div style="width: 400px">
+        <a href="http://www.baidu.com" style="color: cornflowerblue">百度一下</a>
+    </div>
+</div>
+
+
+<script>
+    new Vue({
+        data: function () {
+            return {
+                User: {
+                    account: 'admin',
+                    passWord: '123456'
+                },
+                rules: {
+                    account: [
+                        {required: true, message: '请输入账号', trigger: 'blur'},
+                    ],
+                    passWord: [
+                        {required: true, message: '请输入密码', trigger: 'blur'}
+                    ]
+
+                }
+            }
+        },
+        methods: {
+            reset() {
+                this.User = {}
+            },
+            submitForm() {
+                this.$http.post("/login/login", JSON.stringify(this.User), {emulateJSON: true}).then(function (response) {
+                    if (response.body.code === success) {
+                        window.location.href = '/index.html';
+                    } else {
+                        this.$message(response.body.msg);
+                    }
+                })
+            }
+        }
+    }).$mount('#app');
+</script>
+
+</body>
+</html>
