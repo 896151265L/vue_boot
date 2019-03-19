@@ -12,7 +12,7 @@ import org.springframework.context.annotation.Configuration;
  */
 @Data
 @Configuration
-public class PcConfigProperty {
+public class ConfigProperty {
 
     //电脑网页支付配置参数
     @Value("${aliPcPay.url}")

@@ -1,6 +1,7 @@
 package cn.luoqikun.vue_boot.controller.alipay;
 
-import cn.luoqikun.vue_boot.config.pay_config.PcConfigProperty;
+import cn.luoqikun.vue_boot.config.pay_config.ConfigProperty;
+import com.alibaba.fastjson.JSON;
 import com.alipay.api.AlipayClient;
 import com.alipay.api.DefaultAlipayClient;
 import com.alipay.api.request.AlipayTradeRefundRequest;
@@ -16,29 +17,41 @@ import org.springframework.web.bind.annotation.RestController;
  * @Version: 1.0        退款接口
  */
 @RestController
-@RequestMapping("refund")
+@RequestMapping("aliRefund")
 public class RefundController {
 
     @Autowired
-    private PcConfigProperty pcConfigProperty;
+    private ConfigProperty configProperty;
 
     @SneakyThrows
     @RequestMapping("refund")
     public void refund(){
-        AlipayClient alipayClient = new DefaultAlipayClient("https://openapi.alipay.com/gateway.do","app_id","your private_key","json","GBK","alipay_public_key");
+
+        String url = configProperty.getUrl();
+        String appId = configProperty.getAppId();
+        String appPrivateKey = configProperty.getAppPrivateKey();
+        String format = configProperty.getFormat();
+        String charset = configProperty.getCharset();
+        String aliPayPublicKey = configProperty.getAliPayPublicKey();
+        String signType = configProperty.getSignType();
+
+        AlipayClient alipayClient = new DefaultAlipayClient(url,appId,appPrivateKey,format,charset,aliPayPublicKey,signType);
         AlipayTradeRefundRequest request = new AlipayTradeRefundRequest();
+
+        //这里写退款请求参数
         request.setBizContent("{" +
-                "    \"out_trade_no\":\"20150320010101001\"," +
-                "    \"trade_no\":\"2014112611001004680073956707\"," +
-                "    \"refund_amount\":200.12," +
+                "    \"out_trade_no\":\"20882021764312125\"," +
+                "    \"refund_amount\":33.73," +
                 "    \"refund_reason\":\"正常退款\"," +
                 "    \"out_request_no\":\"HZ01RF001\"," +
                 "    \"operator_id\":\"OP001\"," +
                 "    \"store_id\":\"NJ_S_001\"," +
                 "    \"terminal_id\":\"NJ_T_001\"" +
                 "  }");
+
         AlipayTradeRefundResponse response = alipayClient.execute(request);
         if(response.isSuccess()){
+            //TODO...  退款成功从后做自己的逻辑
             System.out.println("调用成功");
         } else {
             System.out.println("调用失败");

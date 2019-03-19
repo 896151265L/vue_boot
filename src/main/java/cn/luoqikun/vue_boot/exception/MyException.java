@@ -2,6 +2,8 @@ package cn.luoqikun.vue_boot.exception;
 
 import lombok.Data;
 
+import java.util.logging.Logger;
+
 /**
  * @Author: lqk
  * @Date: 2019/2/18 11:04
@@ -10,8 +12,9 @@ import lombok.Data;
 @Data
 public class MyException extends Exception {
 
-    private String code;
-    private String msg;
 
+    public MyException(String msg){
+        super(msg);
+    };
 
 }

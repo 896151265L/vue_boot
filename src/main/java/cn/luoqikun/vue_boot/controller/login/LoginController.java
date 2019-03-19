@@ -50,4 +50,14 @@ public class LoginController extends BaseController {
         SessionUtil.setUserSession(userServiceImpl.selectUser(user.getAccount()));
         return success();
     }
+    @PostMapping("/err")
+    public void test(User user)throws Exception{
+
+        try{
+            Integer a = 1/0;
+        }catch (Exception e){
+            e.printStackTrace();
+            throw new Exception("0不能做除数");
+        }
+    }
 }
