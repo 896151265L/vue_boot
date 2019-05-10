@@ -1,6 +1,12 @@
 package cn.luoqikun.vue_boot.aliyun.oss;
 
+import cn.luoqikun.vue_boot.config.oss.OssConfig;
 import com.aliyun.oss.OSSClient;
+import lombok.Data;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.SpringBootConfiguration;
+import org.springframework.stereotype.Component;
 
 import java.io.InputStream;
 import java.net.URL;
@@ -11,24 +17,24 @@ import java.util.Date;
  * @Date: 2019/1/21 23:33
  * @Version: 1.0
  */
+@Component
 public class OssTemplate {
 
-    private static final String endpoint = "http://oss-cn-beijing.aliyuncs.com";
-    private static final String accessKeyId = "LTAI0kcx5AS0xNeU";
-    private static final String accessKeySecret = "xRKVicolIg8TVVJTryFZJO3SMOuIMc";
-    private static final String bucketName = "luoqi-img";
+    @Autowired
+    private OssConfig ossConfig;
+
 
     /**
      * @param fileName
      * @param inputStream 文件上传成功后会返回文件存储地址
      */
-    public static String fileUpload(String fileName, InputStream inputStream) {
+    public String fileUpload(String fileName, InputStream inputStream) {
 
-        OSSClient ossClient = new OSSClient(endpoint, accessKeyId, accessKeySecret);
-        ossClient.putObject(bucketName, fileName, inputStream);
+        OSSClient ossClient = new OSSClient(ossConfig.getEndPoint(), ossConfig.getAccessKeyId(), ossConfig.getAccessKeySecret());
+        ossClient.putObject(ossConfig.getBucketName(), fileName, inputStream);
         //上传后获取文件存储地址
         Date expiration = new Date(System.currentTimeMillis() + 3600 * 1000 * 24);//设置URL过期时间
-        URL ossFileURL = ossClient.generatePresignedUrl(bucketName, fileName, expiration);
+        URL ossFileURL = ossClient.generatePresignedUrl(ossConfig.getBucketName(), fileName, expiration);
         ossClient.shutdown();    //关闭oss
         return ossFileURL.toString();
 

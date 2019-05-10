@@ -40,8 +40,8 @@ public class RefundController {
 
         //这里写退款请求参数
         request.setBizContent("{" +
-                "    \"out_trade_no\":\"20882021764312125\"," +
-                "    \"refund_amount\":33.73," +
+                "    \"out_trade_no\":\"20882021764312135\"," +
+                "    \"refund_amount\":0.02," +
                 "    \"refund_reason\":\"正常退款\"," +
                 "    \"out_request_no\":\"HZ01RF001\"," +
                 "    \"operator_id\":\"OP001\"," +

@@ -14,7 +14,7 @@ import org.springframework.context.annotation.Configuration;
 public class DruidConfiguration {
     /**
      * 配置监控服务器
-     *
+     * 访问地址：http://localhost:8080/druid/login.html
      * @return 返回监控注册的servlet对象
      */
     @Bean

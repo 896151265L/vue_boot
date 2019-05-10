@@ -14,10 +14,7 @@ import org.apache.shiro.util.ByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  * @Author: lqk
@@ -33,7 +30,7 @@ public class Realm extends AuthorizingRealm {
     //授权
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
-        System.out.println("进入权限验证方法。。。。。。");
+        System.out.println("。。。。。。进入权限验证方法。。。。。。");
         SimpleAuthorizationInfo authorizationInfo = new SimpleAuthorizationInfo();
 
 
@@ -43,7 +40,7 @@ public class Realm extends AuthorizingRealm {
     //登录认证
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken token) {
-        System.out.println("登录认证开始执行。。。。。。");
+        System.out.println("。。。。。。开始执行登录认证。。。。。。");
         String account = (String) token.getPrincipal();// 从Token中获得当前用户的账号
         User user = userServiceImpl.selectUser(account);//从数据库中根据用户名查询用户
         if (null == user) {

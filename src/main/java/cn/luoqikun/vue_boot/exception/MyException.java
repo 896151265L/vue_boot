@@ -12,9 +12,26 @@ import java.util.logging.Logger;
 @Data
 public class MyException extends Exception {
 
+    private String code;
+    private String msg;
 
-    public MyException(String msg){
-        super(msg);
-    };
 
+    /**
+     * @param message
+     * 基本异常
+     */
+    public MyException(String message) {
+        super(message);
+    }
+
+
+    /**
+     * @param code  错误编号
+     * @param msg   信息描述
+     * 基本异常
+     */
+    public MyException(String code, String msg) {
+        this.code = code;
+        this.msg = msg;
+    }
 }

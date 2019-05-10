@@ -2,6 +2,7 @@ package cn.luoqikun.vue_boot.controller.oss;
 
 import cn.luoqikun.vue_boot.aliyun.oss.OssTemplate;
 import lombok.SneakyThrows;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,6 +20,8 @@ import java.io.InputStream;
 @RequestMapping("oss")
 public class ossFileUpload {
 
+    @Autowired
+    private OssTemplate ossTemplate;
 
     //上传文件到OSS
     @PostMapping("/fileUpload")
@@ -27,7 +30,7 @@ public class ossFileUpload {
 
         InputStream inputStream = file.getInputStream();
         String filename = file.getOriginalFilename();
-        String fileURL = OssTemplate.fileUpload(filename, inputStream);
+        String fileURL = ossTemplate.fileUpload(filename, inputStream);
         //TODO...   fileURL为oss文件地址 保存到数据库
     }
 

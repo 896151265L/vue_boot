@@ -2,8 +2,7 @@ package cn.luoqikun.vue_boot.config.pay_config;
 
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.boot.SpringBootConfiguration;
 
 /**
  * @Author: lqk
@@ -11,7 +10,7 @@ import org.springframework.context.annotation.Configuration;
  * @Version: 1.0
  */
 @Data
-@Configuration
+@SpringBootConfiguration
 public class ConfigProperty {
 
     //电脑网页支付配置参数

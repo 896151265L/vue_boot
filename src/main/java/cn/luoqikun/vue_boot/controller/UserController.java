@@ -7,6 +7,7 @@ import cn.luoqikun.vue_boot.entity.User;
 import cn.luoqikun.vue_boot.service.IUserService;
 import cn.luoqikun.vue_boot.utils.Context;
 import com.github.pagehelper.PageInfo;
+import lombok.NonNull;
 import lombok.SneakyThrows;
 import org.apache.shiro.crypto.hash.SimpleHash;
 import org.apache.shiro.util.ByteSource;
@@ -31,7 +32,7 @@ public class UserController extends BaseController {
 
     //新增用户
     @RequestMapping("saveUser")
-    public ResponseBean<Void> saveUser(User user) {
+    public ResponseBean<Void> saveUser(@NonNull User user) {
         if (user.getAccount().contains(" ") || user.getPassWord().contains(" ")) {
             return failedMsg(Context.ERROR_SPACE_CHARACTER);
         }

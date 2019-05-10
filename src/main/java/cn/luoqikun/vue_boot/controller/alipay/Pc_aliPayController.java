@@ -39,6 +39,7 @@ public class Pc_aliPayController {
     //PC端支付下单
     @RequestMapping("pcPay")
     public void doPost(HttpServletRequest req, HttpServletResponse resp,dtoAliPayReqInfo dtoReq) throws ServletException, IOException {
+
         String url = configProperty.getUrl();
         String appId = configProperty.getAppId();
         String aliPayPublicKey = configProperty.getAliPayPublicKey();
@@ -50,10 +51,10 @@ public class Pc_aliPayController {
         //在SDK调用前需要进行初始化
         DefaultAlipayClient alipayClient = new DefaultAlipayClient(url, appId, appPrivateKey, format, charset, aliPayPublicKey, signType);
         AlipayTradePagePayRequest alipayRequest = new AlipayTradePagePayRequest();              //创建API对应的request
-        alipayRequest.setReturnUrl("http://170abfb0.nat123.cc/views/payNotificationSync.html"); //同步通知(内网穿透)
-        alipayRequest.setNotifyUrl("http://170abfb0.nat123.cc/aliPay/payNotifyUrl");            //异步通知(内网穿透)
+        alipayRequest.setReturnUrl("http://170abfb0.nat123.cc/views/payNotificationSync.html"); //同步通知(需要内网穿透)
+        alipayRequest.setNotifyUrl("http://170abfb0.nat123.cc/aliPay/payNotifyUrl");            //异步通知(需要内网穿透)
 
-        dtoReq.setOut_trade_no("20882021764312133");  //订单号
+        dtoReq.setOut_trade_no("20882021764312135");  //订单号
         dtoReq.setSubject("小米9 64G");               //订单标题
         dtoReq.setTotal_amount("0.02");               //订单金额
 
@@ -105,6 +106,18 @@ public class Pc_aliPayController {
             return "failure";
         }
     }
+
+
+
+
+
+
+
+
+
+
+
+
 
     //手机网页支付
     @RequestMapping("appPay")

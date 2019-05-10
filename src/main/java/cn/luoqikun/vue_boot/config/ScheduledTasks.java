@@ -13,9 +13,8 @@ import java.util.Date;
  * @Date: 2019/2/27 17:32
  * @Version: 1.0        Spring的定时任务
  */
-@Component
-@Configurable
-//@EnableScheduling //开启定时任务
+//@Component
+//@EnableScheduling     //开启定时任务
 public class ScheduledTasks {
 
     //每个三秒执行一次
@@ -27,7 +26,7 @@ public class ScheduledTasks {
     //每1分钟执行一次
     @Scheduled(cron = "0 */1 *  * * * ")
     public void reportCurrentByCron() {
-        System.out.println("每隔一分钟执行一次： " + dateFormat().format(new Date()));
+        System.out.println("每一分钟执行一次： " + dateFormat().format(new Date()));
     }
 
     private SimpleDateFormat dateFormat() {

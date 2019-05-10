@@ -14,7 +14,7 @@ public class BaseController {
      * 成功下的返回状态
      */
     protected <T> ResponseBean<T> success() {
-        return new ResponseBean<T>(Context.CODE_SUCCESS_0000);
+        return new ResponseBean<T>(Context.CODE_SUCCESS_0000,"操作成功");
     }
 
     /**
